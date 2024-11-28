@@ -21,8 +21,8 @@ public partial class InscricaoPage : ContentPage
         if (await _validator.Validar(EntNome.Text, EntEmail.Text, EntPhone.Text, EntPassword.Text))
         {
 
-            var response = await _apiService.RegistrarUsuario(EntNome.Text, EntEmail.Text,
-                                                          EntPhone.Text, EntPassword.Text);
+            var response = await _apiService.RegisterUser(EntNome.Text, EntEmail.Text, EntPhone.Text, EntPassword.Text);
+
 
             if (!response.HasError)
             {

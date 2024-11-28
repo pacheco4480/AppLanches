@@ -18,3 +18,4 @@ public partial class App : Application
         MainPage = new NavigationPage(new InscricaoPage(_apiService, _validator));
     }
 }
+

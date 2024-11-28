@@ -6,3 +6,4 @@ public class ApiResponse<T>
     public string? ErrorMessage { get; set; }
     public bool HasError => !string.IsNullOrEmpty(ErrorMessage);
 }
+

@@ -2,9 +2,8 @@
 
 public class Register
 {
-    public string? Nome { get; set; }
+    public string? Name { get; set; } // Alterado de "Nome" para "Name"
     public string? Email { get; set; }
-    public string? Telefone { get; set; }
-    public string? Senha { get; set; }
-
+    public string? Phone { get; set; } // Alterado de "Telefone" para "Phone"
+    public string? Password { get; set; } // Alterado de "Senha" para "Password"
 }

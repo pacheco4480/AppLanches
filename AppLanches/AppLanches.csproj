@@ -43,7 +43,6 @@
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\lanche.svg" Color="#ede5cc" TintColor="#67203c" BaseSize="128,128" />
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
@@ -57,44 +56,22 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiAsset Remove="Resources\Raw\splash.svg" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <None Remove="Resources\Images\cart.png" />
-	  <None Remove="Resources\Images\confirmado.gif" />
-	  <None Remove="Resources\Images\delete.png" />
-	  <None Remove="Resources\Images\edit.png" />
-	  <None Remove="Resources\Images\emptycart.jpg" />
-	  <None Remove="Resources\Images\faq.png" />
-	  <None Remove="Resources\Images\foodicon.png" />
-	  <None Remove="Resources\Images\heart.png" />
-	  <None Remove="Resources\Images\heartfill.png" />
-	  <None Remove="Resources\Images\home.png" />
-	  <None Remove="Resources\Images\lancheicon1.png" />
-	  <None Remove="Resources\Images\lanchesico.png" />
-	  <None Remove="Resources\Images\lanchesimg.png" />
-	  <None Remove="Resources\Images\leftarrow.png" />
-	  <None Remove="Resources\Images\logout.png" />
-	  <None Remove="Resources\Images\orders.png" />
-	  <None Remove="Resources\Images\pedidos.png" />
-	  <None Remove="Resources\Images\perfilconfig.png" />
-	  <None Remove="Resources\Images\perguntas.png" />
-	  <None Remove="Resources\Images\profile.png" />
-	  <None Remove="Resources\Images\profilesettings.png" />
-	  <None Remove="Resources\Images\rightarrow.png" />
-	  <None Remove="Resources\Images\uploadphoto.png" />
-	  <None Remove="Resources\Raw\AboutAssets.txt" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="Microsoft.Extensions.Http" Version="9.0.0" />
-		<PackageReference Include="Microsoft.Maui.Controls" Version="9.0.10" />
-		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="9.0.10" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="App.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="AppShell.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="MainPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\CarrinhoPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
