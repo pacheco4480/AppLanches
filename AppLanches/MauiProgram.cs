@@ -20,6 +20,7 @@ namespace AppLanches
     		builder.Logging.AddDebug();
 #endif
             builder.Services.AddHttpClient();
+            builder.Services.AddSingleton<ApiService>();
             return builder.Build();
         }
     }

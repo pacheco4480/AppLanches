@@ -95,7 +95,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Pages\" />
+	  <MauiXaml Update="Pages\InscricaoPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\LoginPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 </Project>
