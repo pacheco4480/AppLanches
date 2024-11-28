@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppLanches.Pages.PerfilPage"
+             Title="PerfilPage">
+    <Grid RowDefinitions="Auto,5*,1*" RowSpacing="0">
+        <VerticalStackLayout Grid.Row="0"
+                             BackgroundColor="Cyan"
+                             VerticalOptions="Start"
+                             Spacing="1"
+                             Padding="20">
+            <ImageButton Source="user1.png"
+                         HeightRequest="120"
+                         WidthRequest="110"
+                         Aspect="AspectFill"
+                         CornerRadius="30"
+                         HorizontalOptions="Center" 
+                         x:Name="BtnProfileImg"
+                         Clicked="BtnProfileImg_Clicked"/>
+            <Label x:Name="LblUserName"
+                   HorizontalOptions="Center"
+                   TextColor="Black" />
+        </VerticalStackLayout>
+        <VerticalStackLayout Grid.Row="1"
+                             Margin="20"
+                             Spacing="20">
+            <HorizontalStackLayout Spacing="10">
+                <Image Source="pedidos" HeightRequest="30" />
+                <Label Text="My Orders"
+                       FontAttributes="Bold"
+                       FontSize="Small" />
+                <HorizontalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer x:Name="TapOrders" Tapped="TapOrders_Tapped"  />
+                </HorizontalStackLayout.GestureRecognizers>
+            </HorizontalStackLayout>
+            <Border HeightRequest="1" BackgroundColor="Gray" />
+            <HorizontalStackLayout Spacing="10">
+                <Image Source="perfilconfig" HeightRequest="30" />
+                <Label Text="My Account"
+                       FontAttributes="Bold"
+                       FontSize="Small" />
+                <HorizontalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer x:Name="MyAccount" Tapped="MyAccount_Tapped" />
+                </HorizontalStackLayout.GestureRecognizers>
+            </HorizontalStackLayout>
+            <Border HeightRequest="1" BackgroundColor="Gray" />
+            <HorizontalStackLayout Spacing="10">
+                <Image Source="perguntas" HeightRequest="30" />
+                <Label Text="FAQ"
+                       FontAttributes="Bold"
+                       FontSize="Small" />
+                <HorizontalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer x:Name="Faq" Tapped="Faq_Tapped" />
+                </HorizontalStackLayout.GestureRecognizers>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+        <ImageButton Grid.Row="2"
+                Source="logout.png"
+                HeightRequest="60"
+                WidthRequest="60"
+                Padding="5"
+                ToolTipProperties.Text="Logout"
+                HorizontalOptions="Center"
+                BackgroundColor="Transparent"
+                x:Name="BtnLogout"
+                Clicked="BtnLogout_Clicked"/>
+    </Grid>
+
+</ContentPage>
