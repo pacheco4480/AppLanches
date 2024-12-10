@@ -22,6 +22,7 @@ public static class MauiProgram
 #endif
 
         builder.Services.AddHttpClient();
+        builder.Services.AddSingleton<FavoritesService>();
         builder.Services.AddSingleton<ApiService>();
         builder.Services.AddSingleton<IValidator, Validator>();
 

@@ -7,12 +7,14 @@ public partial class LoginPage : ContentPage
 {
     private readonly ApiService _apiService;
     private readonly IValidator _validator;
+    private readonly FavoritesService _favoritesService;
 
-    public LoginPage(ApiService apiService, IValidator validator)
+    public LoginPage(ApiService apiService, IValidator validator, FavoritesService favoritesService)
     {
         InitializeComponent();
         _apiService = apiService;
         _validator = validator;
+        _favoritesService = favoritesService;
     }
 
     private async void BtnSignIn_Clicked(object sender, EventArgs e)
@@ -33,7 +35,7 @@ public partial class LoginPage : ContentPage
 
         if (!response.HasError)
         {
-            Application.Current!.MainPage = new AppShell();
+            Application.Current!.MainPage = new AppShell(_apiService, _validator, _favoritesService);
         }
         else
         {
@@ -43,6 +45,6 @@ public partial class LoginPage : ContentPage
 
     private async void TapRegister_Tapped(object sender, TappedEventArgs e)
     {
-        await Navigation.PushAsync(new InscricaoPage(_apiService, _validator));
+        await Navigation.PushAsync(new InscricaoPage(_apiService, _validator, _favoritesService));
     }
 }
