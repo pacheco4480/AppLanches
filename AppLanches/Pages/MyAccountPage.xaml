@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppLanches.Pages.MyAccountPage"
+             Title="MyAccountPage">
+
+    <Grid RowDefinitions="Auto,*" RowSpacing="0">
+
+        <VerticalStackLayout Grid.Row="0"
+                         BackgroundColor="Cyan"
+                         VerticalOptions="Start"
+                         Spacing="1"
+                         Padding="20">
+
+            <ImageButton Source="user1.png"
+                     HeightRequest="150"
+                     WidthRequest="150"
+                     CornerRadius="125"
+                     Aspect="AspectFill"
+                     x:Name="ImgBtnProfile"/>
+
+            <Label x:Name="LblUserName"
+               HorizontalOptions="Center"
+               TextColor="Black" />
+
+        </VerticalStackLayout>
+        <VerticalStackLayout Grid.Row="1"
+                         Margin="20"
+                         Spacing="20">
+
+            <Entry Placeholder="Name"
+               FontSize="12"
+               x:Name="EntName" />
+
+            <Entry Placeholder="Email"
+               Keyboard="Email"
+               FontSize="12"
+               x:Name="EntEmail" />
+
+            <Entry Placeholder="Phone"
+                 Keyboard="Telephone"
+                 FontSize="12"
+                 x:Name="EntPhone" />
+
+            <Button Text="Save"
+                FontSize="Small"
+                FontAttributes="Bold"
+                Clicked="Button_Clicked"
+                BackgroundColor="Cyan"
+                TextColor="Maroon" />
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

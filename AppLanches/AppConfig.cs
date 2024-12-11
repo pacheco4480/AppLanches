@@ -11,5 +11,8 @@ namespace AppLanches
         public static readonly string BaseUrl = "https://v31bm8p3-7018.uks1.devtunnels.ms/";
         public static readonly string HomePageTitle = "Pacheco Snacks";
 
+        public static readonly string DefaultProfileImage = "Resources/Images/user1.png";
+
+
     }
 }

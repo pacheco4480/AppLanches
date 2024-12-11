@@ -143,6 +143,32 @@ public class ApiService
         }
     }
 
+    public async Task<ApiResponse<bool>> UploadUserImage(byte[] imageArray)
+    {
+        try
+        {
+            var content = new MultipartFormDataContent();
+            content.Add(new ByteArrayContent(imageArray), "image", "image.jpg");
+            var response = await PostRequest("api/users/uploadimage", content);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                string errorMessage = response.StatusCode == HttpStatusCode.Unauthorized
+                  ? "Unauthorized"
+                  : $"Error sending HTTP requisition: {response.StatusCode}";
+
+                _logger.LogError($"Error sending HTTP requisition: {response.StatusCode}");
+                return new ApiResponse<bool> { ErrorMessage = errorMessage };
+            }
+            return new ApiResponse<bool> { Data = true };
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Error uploading user image: {ex.Message}");
+            return new ApiResponse<bool> { ErrorMessage = ex.Message };
+        }
+    }
+
     public async Task<(List<Category>? Categories, string? ErrorMessage)> GetCategories()
     {
         return await GetAsync<List<Category>>("api/categories");
@@ -302,5 +328,26 @@ public class ApiService
     {
         var endpoint = $"api/ShoppingCartItems/{userId}";
         return await GetAsync<List<PurchaseCartItem>>(endpoint);
+    }
+
+    public async Task<(ProfileImage? ProfileImage, string? ErrorMessage)> GetUserProfileImage()
+    {
+        string endpoint = "api/users/userimage";
+        return await GetAsync<ProfileImage>(endpoint);
+    }
+
+    public async Task<(List<OrderByUser>?, string? ErrorMessage)> GetOrdersByUser(int userId)
+    {
+
+        string endpoint = $"api/orders/getordersbyuser/{userId}";
+
+        return await GetAsync<List<OrderByUser>>(endpoint);
+    }
+
+    public async Task<(List<OrderDetail>?, string? ErrorMessage)> GetOrderDetails(int orderId)
+    {
+        string endpoint = $"api/orders/getorderdetails/{orderId}";
+
+        return await GetAsync<List<OrderDetail>>(endpoint);
     }
 }
