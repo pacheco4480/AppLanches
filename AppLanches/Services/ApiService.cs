@@ -7,6 +7,7 @@ using System.Text.Json;
 
 namespace AppLanches.Services;
 
+
 public class ApiService
 {
     private readonly HttpClient _httpClient;
@@ -56,6 +57,33 @@ public class ApiService
         catch (Exception ex)
         {
             _logger.LogError($"Error registering user: {ex.Message}");
+            return new ApiResponse<bool> { ErrorMessage = ex.Message };
+        }
+    }
+
+    public async Task<ApiResponse<bool>> ConfirmOrder(Order order)
+    {
+        try
+        {
+            var json = JsonSerializer.Serialize(order, _serializerOptions);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await PostRequest("api/Orders", content);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                string errorMessage = response.StatusCode == HttpStatusCode.Unauthorized
+                    ? "Unauthorized"
+                    : $"Error sending HTTP requisition: {response.StatusCode}";
+
+                _logger.LogError($"Error sending HTTP requisition: {response.StatusCode}");
+                return new ApiResponse<bool> { ErrorMessage = errorMessage };
+            }
+            return new ApiResponse<bool> { Data = true };
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Error confirming order: {ex.Message}");
             return new ApiResponse<bool> { ErrorMessage = ex.Message };
         }
     }
@@ -188,5 +216,91 @@ public class ApiService
     {
         string endpoint = $"api/products/{productId}";
         return await GetAsync<Product>(endpoint);
+    }
+
+    public async Task<ApiResponse<bool>> AddItemToCart(PurchaseCart purchaseCart)
+    {
+        try
+        {
+            var json = JsonSerializer.Serialize(purchaseCart, _serializerOptions);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await PostRequest("api/ShoppingCartItems", content);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                _logger.LogError($"Error sending HTTP requisition: {response.StatusCode}");
+                return new ApiResponse<bool>
+                {
+                    ErrorMessage = $"Error sending HTTP requisition: {response.StatusCode}"
+                };
+            }
+
+            return new ApiResponse<bool> { Data = true };
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Error adding item to cart: {ex.Message}");
+            return new ApiResponse<bool> { ErrorMessage = ex.Message };
+        }
+    }
+
+    public async Task<(bool Data, string? ErrorMessage)> UpdateCartItemQuantity(int productId, string action)
+    {
+        try
+        {
+            var content = new StringContent(string.Empty, Encoding.UTF8, "application/json");
+            var response = await PutRequest($"api/ShoppingCartItems?productId={productId}&action={action}", content);
+            if (response.IsSuccessStatusCode)
+            {
+                return (true, null);
+            }
+            else
+            {
+                if (response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    string errorMessage = "Unauthorized";
+                    _logger.LogWarning(errorMessage);
+                    return (false, errorMessage);
+                }
+                string generalErrorMessage = $"Requisition error: {response.ReasonPhrase}";
+                _logger.LogError(generalErrorMessage);
+                return (false, generalErrorMessage);
+            }
+        }
+        catch (HttpRequestException ex)
+        {
+            string errorMessage = $"HTTP requisition error: {ex.Message}";
+            _logger.LogError(ex, errorMessage);
+            return (false, errorMessage);
+        }
+        catch (Exception ex)
+        {
+            string errorMessage = $"Unpexpected error: {ex.Message}";
+            _logger.LogError(ex, errorMessage);
+            return (false, errorMessage);
+        }
+    }
+
+    private async Task<HttpResponseMessage> PutRequest(string uri, HttpContent content)
+    {
+        var urlAddress = AppConfig.BaseUrl + uri;
+        try
+        {
+            AddAuthorizationHeader();
+            var result = await _httpClient.PutAsync(urlAddress, content);
+            return result;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Error sending PUT requisition for {uri}: {ex.Message}");
+            return new HttpResponseMessage(HttpStatusCode.BadRequest);
+        }
+    }
+
+    public async Task<(List<PurchaseCartItem>? PurchaseCartItems, string? ErrorMessage)> GetPurchaseCartItems(int userId)
+    {
+        var endpoint = $"api/ShoppingCartItems/{userId}";
+        return await GetAsync<List<PurchaseCartItem>>(endpoint);
     }
 }

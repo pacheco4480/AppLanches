@@ -22,7 +22,7 @@ namespace AppLanches
         private void ConfigureShell()
         {
             var homePage = new HomePage(_apiService, _validator, _favoritesService);
-            var carrinhoPage = new CarrinhoPage();
+            var carrinhoPage = new CarrinhoPage(_apiService, _validator, _favoritesService);
             var favoritosPage = new FavoritosPage();
             var perfilPage = new PerfilPage();
 

@@ -147,32 +147,32 @@ public partial class ProductDetailsPage : ContentPage
         }
     }
 
-    //private async void BtnAddToCart_Clicked(object sender, EventArgs e)
-    //{
-    //    try
-    //    {
-    //        var purchaseCart = new PurchaseCart()
-    //        {
-    //            Quantity = Convert.ToInt32(LblQuantity.Text),
-    //            UnitPrice = Convert.ToDecimal(LblProductPrice.Text),
-    //            Total = Convert.ToDecimal(LblTotalPrice.Text),
-    //            ProductId = _productId,
-    //            ClientId = Preferences.Get("userid", 0)
-    //        };
-    //        var response = await _apiService.AddItemToCart(purchaseCart);
-    //        if (response.Data)
-    //        {
-    //            await DisplayAlert("Success", "Item added to cart !", "OK");
-    //            await Navigation.PopAsync();
-    //        }
-    //        else
-    //        {
-    //            await DisplayAlert("Error", $"Failed adding item: {response.ErrorMessage}", "OK");
-    //        }
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        await DisplayAlert("Error", $"Unexpected error ocurred: {ex.Message}", "OK");
-    //    }
-    //}
+    private async void BtnAddToCart_Clicked(object sender, EventArgs e)
+    {
+        try
+        {
+            var purchaseCart = new PurchaseCart()
+            {
+                Quantity = Convert.ToInt32(LblQuantity.Text),
+                UnitPrice = Convert.ToDecimal(LblProductPrice.Text),
+                Total = Convert.ToDecimal(LblTotalPrice.Text),
+                ProductId = _productId,
+                ClientId = Preferences.Get("userid", 0)
+            };
+            var response = await _apiService.AddItemToCart(purchaseCart);
+            if (response.Data)
+            {
+                await DisplayAlert("Success", "Item added to cart !", "OK");
+                await Navigation.PopAsync();
+            }
+            else
+            {
+                await DisplayAlert("Error", $"Failed adding item: {response.ErrorMessage}", "OK");
+            }
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Error", $"Unexpected error ocurred: {ex.Message}", "OK");
+        }
+    }
 }

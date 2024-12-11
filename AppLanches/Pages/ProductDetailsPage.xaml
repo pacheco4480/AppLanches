@@ -122,7 +122,7 @@
                 </Label>
             </VerticalStackLayout>
 
-            <!--<Button Text="Add to Cart"
+            <Button Text="Add to Cart"
                     Grid.Column="1"
                     CornerRadius="0"
                     Padding="30"
@@ -133,7 +133,7 @@
                     TextColor="White"
                     x:Name="BtnAddToCart"                     
                     Clicked="BtnAddToCart_Clicked"
-            />-->
+            />
 
         </Grid>
 
